@@ -38,6 +38,9 @@ func main() {
 	log.Println("box ready")
 
 	filepath.Walk(*dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			log.Fatal(err)
+		}
 		if !strings.HasSuffix(info.Name(), *images) {
 			return nil
 		}

@@ -7,6 +7,11 @@ These are some little tools for [facebox](https://machinebox.io/docs/facebox), t
 `faceboxteach` is a tool that walks a directory structure teaching each
 image file.
 
+To install it:
+```
+$ go get github.com/machinebox/faceboxtools/faceboxteach
+```
+
 The folder name should be the `name` of the person, and the filenames will become
 the `id` in facebox.
 
@@ -49,14 +54,17 @@ $ faceboxteach -dir=/path/to/directory -images=.jpg -facebox=http://localhost:80
 
 `faceboxtag` is a tool that walks a directory structure and outputs the people that recognise
 
+To install it:
+```
+$ go get github.com/machinebox/faceboxtools/faceboxtag
+```
+
 ```
 ├── photos
 │   ├── whoisthis.jpg
 │   ├── unknown.jpg
 │   └── ????.jpg
 ```
-
-* Underscores are translated into spaces for a better experience
 
 To find out who is on the photos, will be on the output
 
