@@ -17,7 +17,6 @@ func main() {
 	var (
 		dir         = flag.String("dir", "./testdata", "source directory")
 		faceboxAddr = flag.String("facebox", "http://localhost:8080", "facebox address")
-		images      = flag.String("images", ".jpg", "image files extension")
 	)
 	flag.Parse()
 
@@ -37,11 +36,14 @@ func main() {
 	}
 	log.Println("box ready")
 
+	log.Println("Walk")
+
 	filepath.Walk(*dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			log.Fatal(err)
 		}
-		if !strings.HasSuffix(info.Name(), *images) {
+		ll := strings.ToLower(info.Name())
+		if !strings.HasSuffix(ll, ".jpg") && !strings.HasSuffix(ll, ".jpeg") && !strings.HasSuffix(ll, ".png") {
 			return nil
 		}
 		parts := strings.Split(path, string(filepath.Separator))
@@ -66,7 +68,7 @@ func teachFromFile(faceboxClient *facebox.Client, path, name, filename string) e
 		return err
 	}
 	defer r.Close()
-	err = faceboxClient.Teach(r, filename, name)
+	err = faceboxClient.Teach(r, strings.Replace(name, " ", "_", -1)+"_"+filename, name)
 	if err != nil {
 		return err
 	}
