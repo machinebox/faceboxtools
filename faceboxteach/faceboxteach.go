@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/machinebox/sdk-go/boxutil"
 	"github.com/machinebox/sdk-go/facebox"
-	"github.com/machinebox/sdk-go/x/boxutil"
 )
 
 func main() {
@@ -29,8 +29,9 @@ func main() {
 	defer cancel()
 	err := boxutil.WaitForReady(ctx, faceboxClient)
 	if err != nil {
-		if err == boxutil.ErrCanceled {
+		if err == context.Canceled {
 			log.Fatalln("timed out waiting for box to be ready")
+			return
 		}
 		log.Fatalln(err)
 	}
